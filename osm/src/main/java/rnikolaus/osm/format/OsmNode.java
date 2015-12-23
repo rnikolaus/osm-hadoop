@@ -25,11 +25,11 @@ public class OsmNode extends SaxNode{
     }
     public void addTag(OsmTag tag){
         if(
-                !tag.contains("created_by")
-                &&!tag.contains("converted_by")
-                &&!tag.containsStartingWith("TMC:")
-                &&!tag.contains("source")
-//                tag.containsStartingWith("addr:")
+//                !tag.contains("created_by")
+//                &&!tag.contains("converted_by")
+//                &&!tag.containsStartingWith("TMC:")
+//                &&!tag.contains("source")
+                tag.containsStartingWith("addr:")||tag.contains("postal_code")
                 ){
             tags.add(tag);
         }

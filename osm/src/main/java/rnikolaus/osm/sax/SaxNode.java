@@ -20,9 +20,9 @@ public class SaxNode {
     public SaxNode(Attributes atts) {
         List<String> filterList = getFilter();
          for ( int i = 0; i < atts.getLength(); i++ ){
-             final String name = atts.getQName( i ).trim();
+             final String name = atts.getQName( i ).replace(";", ":").trim();
              if (filterList.contains(name)) continue;
-              String value = atts.getValue( i ).trim();
+              String value = atts.getValue( i ).replace(";", ":").trim();
              if (name.equals("id"))value = getPrefix()+value;
              stuff.put(name, value);
          }
