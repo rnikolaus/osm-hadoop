@@ -56,8 +56,8 @@ public class OsmNode extends SaxNode{
     public boolean hasTags(){
         return !tags.isEmpty();
     }
-    private Map<String,String> createTagMap(){
-        HashMap<String,String> result = new HashMap<>();
+    private Map<Object,Object> createTagMap(){
+        HashMap<Object,Object> result = new HashMap<>();
         for (OsmTag tag:tags){
             result.put(tag.getKey(), tag.getValue());
         }
@@ -73,6 +73,7 @@ public class OsmNode extends SaxNode{
 
     protected HashMap getResult() {
         HashMap result = new HashMap(stuff);
+        result.put("type",getPrefix());
         result.put("tags", createTagMap());
         return result;
     }

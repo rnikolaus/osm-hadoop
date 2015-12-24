@@ -20,7 +20,7 @@ public class OsmMember extends SaxNode{
 
     @Override
     public String toString() {
-        return get("type")+get("ref");
+        return get("type").toString()+get("ref").toString();
     }
     
     

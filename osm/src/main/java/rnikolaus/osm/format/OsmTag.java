@@ -26,10 +26,10 @@ public class OsmTag extends SaxNode{
         l.add("converted_by");
         return l;
     }
-    public String getKey(){
+    public Object getKey(){
         return get("k");
     }
-    public String getValue(){
+    public Object getValue(){
         return get("v");
     }
     

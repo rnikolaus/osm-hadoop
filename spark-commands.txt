@@ -1,0 +1,50 @@
+osm = sqlContext.read.json("hdfs://localhost:9000/user/hduser/jsonout")
+from pyspark.sql.functions import *
+
+ osm.filter("tags.postal_code ='84032'").take(1)
+
+
+>>> osm.registerTempTable("osm")
+>>> myzip.registerTempTable("myzip")
+>>>
+
+
+def f(row):
+	result=[];
+	for ref in row.member:
+		result.append({"id":ref,"postal_code":row.tags.postal_code});
+	return result;
+
+
+def f(row):
+	result=[];
+	for ref in row.member:
+		result.append(pyspark.sql.Row(id=ref,postal_code=row.tags.postal_code));
+	return result;
+
+ osm.filter("type = 'relation' and tags.postal_code='84032'").flatMap(f).toDF().take(10)
+
+
+plz =  osm.filter("type = 'relation' and tags.postal_code is not null").flatMap(f).toDF()
+
+plznodes = osm.join(plz,osm.id == plz.id)
+
+def fways(row):
+	result=[];
+	if not row.refs:
+		return result;
+	for ref in row.refs:
+		result.append(pyspark.sql.Row(id=ref,postal_code=row.postal_code)); 
+	return result;
+
+
+plznodes.groupBy(plznodes.postal_code).avg("lat","lon")
+
+
+ plznode2 = plznodes.flatMap(fways).toDF()
+
+osm.join(plznode2,osm.id == plznode2.id).groupBy("postal_code").agg({"lat": "mean","lon": "mean"}).count()
+
+plznodes.unionAll(osm.join(plznode2,osm.id == plznode2.id)).groupBy("postal_code").agg({"lat": "mean","lon": "mean"}).count()
+
+http://download.geofabrik.de/europe/austria-latest.osm.bz2
