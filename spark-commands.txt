@@ -47,4 +47,8 @@ osm.join(plznode2,osm.id == plznode2.id).groupBy("postal_code").agg({"lat": "mea
 
 plznodes.unionAll(osm.join(plznode2,osm.id == plznode2.id)).groupBy("postal_code").agg({"lat": "mean","lon": "mean"}).count()
 
+ result = plznodes.unionAll(osm.join(plznode2,osm.id == plznode2.id)).groupBy("postal_code").agg({"lat": "mean","lon": "mean"})
+>>> result.write.format("json").save("austria.json")
+
+
 http://download.geofabrik.de/europe/austria-latest.osm.bz2
