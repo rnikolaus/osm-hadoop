@@ -5,28 +5,12 @@
  */
 package rnikolaus.osm;
 
-import rnikolaus.osm.sax.OsmSaxHandler;
 import rnikolaus.osm.format.OsmNode;
-import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.RunnableFuture;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-import java.util.function.Consumer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 import org.apache.commons.compress.compressors.bzip2.BZip2CompressorInputStream;
-import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
+
 
 /**
  *

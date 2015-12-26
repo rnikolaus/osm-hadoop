@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Pattern;
 import org.xml.sax.Attributes;
 
@@ -21,7 +22,7 @@ public class SaxNode {
 
     protected HashMap<String, Object> stuff = new HashMap<>();
     Pattern num = Pattern.compile("-?\\d+\\.\\d+");
-    NumberFormat nf = NumberFormat.getInstance();
+    NumberFormat nf = NumberFormat.getInstance(Locale.ENGLISH);
 
     public SaxNode(Attributes atts) {
         List<String> filterList = getFilter();
