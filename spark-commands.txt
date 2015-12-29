@@ -51,4 +51,8 @@ plznodes.unionAll(osm.join(plznode2,osm.id == plznode2.id)).groupBy("postal_code
 >>> result.write.format("json").save("austria.json")
 
 
-http://download.geofabrik.de/europe/austria-latest.osm.bz2
+
+
+osm.select(col("tags.addr:postcode").alias("postcode"),col("tags.addr:city").alias("city"),col("tags.addr:street").alias("street")).show()
+
+>>> osm.select(col("tags.addr:postcode").alias("postcode"),col("tags.addr:city").alias("city"),col("tags.addr:street").alias("street")).filter("postcode is not null or street is not null or city is not null").distinct().sort("city").show()
